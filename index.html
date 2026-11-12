@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HTML: гіперпосилання та таблиці</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#5b6578;--ac:#2f6fed;--ok:#1f9d55;--bad:#d64545;--code:#10172a;--codetx:#e6edf7;--bd:#dde2ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--card:#1b2030;--tx:#e8ecf5;--mut:#9aa5bb;--ac:#6e9bff;--ok:#4cc27f;--bad:#ff7b7b;--code:#0b0e16;--codetx:#e6edf7;--bd:#2c344a}}
+:root[data-theme="dark"]{--bg:#12151c;--card:#1b2030;--tx:#e8ecf5;--mut:#9aa5bb;--ac:#6e9bff;--ok:#4cc27f;--bad:#ff7b7b;--code:#0b0e16;--codetx:#e6edf7;--bd:#2c344a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.2em 0}
+h2{font-size:1.2rem;margin:.2em 0 .5em}
+.sub{color:var(--mut);margin:0 0 12px}
+.tabs{display:flex;gap:6px;margin:12px 0}
+.tabs button{flex:1;padding:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;cursor:pointer}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+pre,textarea{background:var(--code);color:var(--codetx);border-radius:10px;font:14px/1.5 ui-monospace,Consolas,monospace}
+pre{padding:12px;overflow-x:auto;margin:8px 0}
+code{background:var(--bd);padding:1px 6px;border-radius:5px;font-size:.92em}
+pre code{background:none;padding:0}
+.t{color:#ff9d6e}.a{color:#7fd1ff}.v{color:#a5e075}
+button.go{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 16px;font:inherit;cursor:pointer}
+button.alt{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;font:inherit;cursor:pointer}
+.scroll{overflow-x:auto}
+textarea{width:100%;min-height:200px;padding:12px;border:0;resize:vertical}
+iframe{width:100%;height:220px;border:1px solid var(--bd);border-radius:10px;background:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.msg{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.95rem}
+.msg.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.msg.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.q{margin:14px 0}.q p{margin:0 0 6px;font-weight:600}
+.q label{display:block;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;margin:4px 0;cursor:pointer}
+.q label.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,transparent)}
+.q label.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,transparent)}
+.hint{color:var(--mut);font-size:.92rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.task.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.hide{display:none}
+table.ex{border-collapse:collapse;margin:8px 0}
+table.ex td,table.ex th{border:1px solid var(--bd);padding:6px 12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>HTML: гіперпосилання та таблиці</h1>
+<p class="sub">11 клас · заняття 3 · рівень початківця</p>
+<div class="tabs">
+<button class="on" data-tab="theory">1. Теорія</button>
+<button data-tab="practice">2. Практика</button>
+<button data-tab="quiz">3. Тест</button>
+<button data-tab="summary">4. Оцінка</button>
+</div>
+
+<section id="theory">
+<div class="card">
+<h2>🔗 Гіперпосилання</h2>
+<p>Посилання створює тег <code>&lt;a&gt;</code> (від anchor — «якір»). Куди веде посилання, вказує атрибут <code>href</code>. Текст між тегами — це те, що бачить користувач.</p>
+<pre><code><span class="t">&lt;a</span> <span class="a">href</span>=<span class="v">"https://uk.wikipedia.org"</span><span class="t">&gt;</span>Відкрити Вікіпедію<span class="t">&lt;/a&gt;</span></code></pre>
+<p>Хочете, щоб сторінка відкривалась у новій вкладці? Додайте <code>target="_blank"</code>.</p>
+<p class="hint">Приклад на сторінці: <a href="#" onclick="return false">Так виглядає посилання</a></p>
+</div>
+<div class="card">
+<h2>▦ Таблиці</h2>
+<p>Таблиця складається з рядків і комірок:</p>
+<div class="scroll"><table class="ex">
+<tr><th>Тег</th><th>Що означає</th></tr>
+<tr><td><code>&lt;table&gt;</code></td><td>уся таблиця</td></tr>
+<tr><td><code>&lt;tr&gt;</code></td><td>рядок (table row)</td></tr>
+<tr><td><code>&lt;th&gt;</code></td><td>комірка-заголовок (жирна, по центру)</td></tr>
+<tr><td><code>&lt;td&gt;</code></td><td>звичайна комірка (table data)</td></tr>
+</table></div>
+<pre><code><span class="t">&lt;table</span> <span class="a">border</span>=<span class="v">"1"</span><span class="t">&gt;</span>
+  <span class="t">&lt;tr&gt;&lt;th&gt;</span>Предмет<span class="t">&lt;/th&gt;&lt;th&gt;</span>Оцінка<span class="t">&lt;/th&gt;&lt;/tr&gt;</span>
+  <span class="t">&lt;tr&gt;&lt;td&gt;</span>Інформатика<span class="t">&lt;/td&gt;&lt;td&gt;</span>12<span class="t">&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="t">&lt;/table&gt;</span></code></pre>
+<p class="hint">Правило: кожен рядок <code>&lt;tr&gt;</code> містить комірки, а всі теги треба закривати.</p>
+</div>
+<button class="go" onclick="showTab('practice')">До практики →</button>
+</section>
+
+<section id="practice" class="hide">
+<div class="card">
+<h2>Практика</h2>
+<p class="hint">Змінюйте код ліворуч — результат одразу з’являється праворуч. Потім натисніть «Перевірити».</p>
+<div class="row" id="tasks"></div>
+<p id="taskText"></p>
+<div class="grid">
+<textarea id="code" spellcheck="false"></textarea>
+<iframe id="prev" sandbox title="Результат"></iframe>
+</div>
+<div class="row"><button class="go" id="check">Перевірити</button><button class="alt" id="reset">Почати спочатку</button></div>
+<div id="res"></div>
+</div>
+</section>
+
+<section id="quiz" class="hide">
+<div class="card">
+<h2>Міні-тест</h2>
+<div id="qs"></div>
+<button class="go" id="qcheck">Перевірити відповіді</button>
+<div id="qres"></div>
+</div>
+</section>
+
+<section id="summary" class="hide">
+<div class="card">
+<h2>Підсумкова оцінка</h2>
+<p class="hint">Практика — 6 балів (3 завдання по 2 бали), тест — 5 балів (по 1 балу за запитання). Разом — 11 балів.</p>
+<input id="stname" placeholder="Прізвище та ім’я" style="width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:6px 0 12px">
+<div class="scroll" id="sumtab"></div>
+</div>
+</section>
+</div>
+
+<script>
+function showTab(n){
+  ["theory","practice","quiz","summary"].forEach(function(x){document.getElementById(x).classList.toggle("hide",x!==n)});
+  document.querySelectorAll(".tabs button").forEach(function(b){b.classList.toggle("on",b.dataset.tab===n)});
+  if(n==="summary")renderSummary();window.scrollTo(0,0);
+}
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){showTab(b.dataset.tab)}});
+
+var tasks=[
+ {name:"Завдання 1",text:"Створіть посилання з текстом «Моя школа», яке веде на https://uk.wikipedia.org і відкривається в новій вкладці.",
+  start:"<h3>Корисні сайти</h3>\n<!-- Додайте посилання тут -->\n",
+  check:function(d){
+   var a=d.querySelector("a[href]");
+   if(!a)return "Не знайдено тег <a> з атрибутом href.";
+   if(!/^https?:\/\//.test(a.getAttribute("href")))return "Адреса в href має починатися з https://";
+   if(!a.textContent.trim())return "Посилання порожнє: додайте текст між <a> і </a>.";
+   if(a.getAttribute("target")!=="_blank")return "Додайте атрибут target=\"_blank\".";
+   return "";}},
+ {name:"Завдання 2",text:"Створіть таблицю з рамкою (border=\"1\"): рядок заголовків із двох <th> (Предмет, Оцінка) і ще мінімум два рядки з даними.",
+  start:"<table>\n  <!-- Додайте рядки тут -->\n</table>\n",
+  check:function(d){
+   var t=d.querySelector("table");
+   if(!t)return "Не знайдено тег <table>.";
+   if(!t.hasAttribute("border"))return "Додайте до <table> атрибут border=\"1\".";
+   var rows=t.querySelectorAll("tr");
+   if(rows.length<3)return "Потрібно мінімум 3 рядки <tr> (заголовок + 2 рядки даних). Зараз: "+rows.length+".";
+   if(rows[0].querySelectorAll("th").length<2)return "У першому рядку мають бути 2 комірки-заголовки <th>.";
+   for(var i=1;i<rows.length;i++){if(rows[i].querySelectorAll("td").length<2)return "У рядку "+(i+1)+" має бути щонайменше 2 комірки <td>.";}
+   return "";}},
+ {name:"Завдання 3",text:"Об’єднайте: зробіть таблицю «Мої сайти» з 2 колонками (Назва, Посилання), де у стовпці «Посилання» в комірках <td> є справжні посилання <a href>. Потрібно мінімум 2 рядки даних.",
+  start:"<table border=\"1\">\n  <tr><th>Назва</th><th>Посилання</th></tr>\n  <!-- Додайте рядки з посиланнями -->\n</table>\n",
+  check:function(d){
+   var t=d.querySelector("table");
+   if(!t)return "Не знайдено таблицю.";
+   var rows=t.querySelectorAll("tr");
+   if(rows.length<3)return "Потрібно заголовок + мінімум 2 рядки даних.";
+   var n=0;for(var i=1;i<rows.length;i++){if(rows[i].querySelector("td a[href]"))n++;}
+   if(n<2)return "У двох рядках даних має бути посилання <a href> усередині <td>. Знайдено: "+n+".";
+   return "";}}
+];
+var done=[false,false,false],qScore=null,qRes=[0,0,0,0,0],cur=0,ta=document.getElementById("code"),fr=document.getElementById("prev");
+var tb=document.getElementById("tasks");
+tasks.forEach(function(t,i){var b=document.createElement("button");b.className="alt task"+(i===0?" on":"");b.textContent=t.name;b.onclick=function(){pick(i)};tb.appendChild(b)});
+function pick(i){cur=i;document.querySelectorAll(".task").forEach(function(b,j){b.classList.toggle("on",j===i)});
+  document.getElementById("taskText").textContent=tasks[i].text;ta.value=tasks[i].start;render();document.getElementById("res").innerHTML="";}
+function render(){fr.srcdoc='<body style="font-family:sans-serif;color:#111;margin:10px">'+ta.value+'</body>';}
+ta.oninput=render;
+document.getElementById("reset").onclick=function(){pick(cur)};
+document.getElementById("check").onclick=function(){
+  var d=new DOMParser().parseFromString(ta.value,"text/html");
+  var err=tasks[cur].check(d),r=document.getElementById("res");
+  if(!err)done[cur]=true;
+  r.innerHTML=err?'<div class="msg bad">❌ '+err.replace(/</g,"&lt;")+'</div>':'<div class="msg ok">✅ Чудово! Завдання виконано'+(cur<tasks.length-1?' — переходьте до наступного.':'. Тепер спробуйте тест!')+'</div>';
+};
+pick(0);
+
+function renderSummary(){
+  var p=0,h='<table class="ex" style="width:100%"><tr><th>Пункт</th><th>Бали</th><th>Макс.</th></tr>';
+  tasks.forEach(function(t,i){var s=done[i]?2:0;p+=s;h+='<tr><td>Практика: '+t.name+(done[i]?' ✅':' ❌')+'</td><td>'+s+'</td><td>2</td></tr>';});
+  h+='<tr><th>Практика разом</th><th>'+p+'</th><th>6</th></tr>';
+  var q=0;
+  for(var i=0;i<5;i++){q+=qRes[i];h+='<tr><td>Тест: запитання '+(i+1)+(qScore===null?'':(qRes[i]?' ✅':' ❌'))+'</td><td>'+qRes[i]+'</td><td>1</td></tr>';}
+  h+='<tr><th>Тест разом'+(qScore===null?' (не пройдено)':'')+'</th><th>'+q+'</th><th>5</th></tr>';
+  var tot=p+q,g=Math.round(tot/11*12);
+  h+='<tr><th>Загальна оцінка</th><th>'+tot+'</th><th>11</th></tr></table>';
+  h+='<div class="msg '+(g>=7?'ok':'bad')+'" style="font-size:1.05rem">Загальний результат: <b>'+tot+' з 11</b> балів · за 12-бальною шкалою: <b>'+g+'</b></div>';
+  document.getElementById('sumtab').innerHTML=h;
+}
+var Q=[
+ {q:"Який атрибут вказує адресу, куди веде посилання?",o:["src","href","link","url"],a:1},
+ {q:"Який тег створює рядок таблиці?",o:["<td>","<th>","<tr>","<row>"],a:2},
+ {q:"Чим <th> відрізняється від <td>?",o:["Це комірка-заголовок","Це новий рядок","Це кінець таблиці","Нічим"],a:0},
+ {q:"Що робить target=\"_blank\"?",o:["Робить посилання червоним","Відкриває сторінку в новій вкладці","Видаляє посилання","Додає рамку"],a:1},
+ {q:"Скільки тегів <td> потрібно в рядку таблиці з 3 стовпців?",o:["1","2","3","6"],a:2}
+];
+var qs=document.getElementById("qs");
+Q.forEach(function(x,i){
+  var h='<div class="q"><p>'+(i+1)+'. '+x.q.replace(/</g,"&lt;")+'</p>';
+  x.o.forEach(function(o,j){h+='<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o.replace(/</g,"&lt;")+'</label>'});
+  qs.insertAdjacentHTML("beforeend",h+'</div>');
+});
+document.getElementById("qcheck").onclick=function(){
+  qRes=[0,0,0,0,0];
+  var s=0;
+  Q.forEach(function(x,i){
+    var labs=document.querySelectorAll('input[name="q'+i+'"]');
+    labs.forEach(function(inp,j){var l=inp.parentNode;l.classList.remove("right","wrong");
+      if(j===x.a)l.classList.add("right");
+      else if(inp.checked)l.classList.add("wrong");
+      if(inp.checked&&j===x.a){s++;qRes[i]=1;}});
+  });
+  qScore=s;var good=s>=4;
+  document.getElementById("qres").innerHTML='<div class="msg '+(good?'ok':'bad')+'">Результат: '+s+' з '+Q.length+(good?' — відмінно! 🎉':' — перегляньте теорію й спробуйте ще раз.')+'</div>';
+};
+</script>
+</body>
+</html>
